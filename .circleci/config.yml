@@ -28,11 +28,21 @@ jobs:
       - run:
           name: Run tests
           command: |
-              docker-compose up -d 
-              echo "dcoker ps"             
+              docker-compose up -d
+              echo "Docker Ps...."
               docker ps
-              echo "dcoker images"
-              docker images             
+              echo "Docker Images...."
+              docker images
+      # Deploy to Docker Hub
+      - run:
+          name: Deploy to Docker HUB
+          command: |
+              docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+              docker tag vivaangular_angularapp $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
+              docker tag vivaangular_angularapp $DOCKER_HUB_USER_ID/viva-angular:latest
+              docker push $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
+              docker push $DOCKER_HUB_USER_ID/viva-angular:latest             
+             
       #Cache Local dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
