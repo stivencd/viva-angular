@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/viva-angular
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: node:8-browsers
     steps:
       - checkout
       - setup_remote_docker
