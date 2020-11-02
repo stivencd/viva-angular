@@ -19,7 +19,10 @@ jobs:
       # Install dependencies
       - run:
           name: Install local dependencies
-          command: npm install
+          command: |
+              curl -sL https://rpm.nodesource.com/setup_8.x | sudo -E bash -
+              yum install nodejs
+              npm install
              
       #Cache Local dependencies
       - save_cache:
