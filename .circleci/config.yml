@@ -30,6 +30,8 @@ jobs:
           command: |
               docker-compose up -d
               docker-compose ps
+              docker ps
+              docker images
               
              
       #Cache Local dependencies
