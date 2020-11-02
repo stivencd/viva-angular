@@ -24,8 +24,8 @@ jobs:
           name: Deploy to Docker HUB
           command: |
              docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-             docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
-             docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:latest
+             docker tag e56e93e8d609 $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
+             docker tag e56e93e8d609 $DOCKER_HUB_USER_ID/viva-angular:latest
              docker push $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
              docker push $DOCKER_HUB_USER_ID/viva-angular:latest
         
