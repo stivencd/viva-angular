@@ -20,17 +20,17 @@ jobs:
       - run:
           name: Install local dependencies
           command: npm install
+      - run:
+          name: Deploy to Docker HUB
+          command: |
+             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+             docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
+             docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:latest
+             docker push $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
+             docker push $DOCKER_HUB_USER_ID/viva-angular:latest
+        
       #Cache Local dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
           paths: 
              - node_modules
-deployment:
-  hub:
-    branch: [main]
-    commands:
-      - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-      - docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
-      - docker tag viva-angular_angularapp $DOCKER_HUB_USER_ID/viva-angular:latest
-      - docker push $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
-      - docker push $DOCKER_HUB_USER_ID/viva-angular:latest
