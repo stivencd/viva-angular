@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/viva-angular
     docker:
-      - image: circleci/node:8-browsers
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - setup_remote_docker
@@ -20,15 +20,7 @@ jobs:
       - run:
           name: Install local dependencies
           command: npm install
-      - run:
-          name: Deploy to Docker HUB
-          command: |
-             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-             docker tag e56e93e8d609 $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
-             docker tag e56e93e8d609 $DOCKER_HUB_USER_ID/viva-angular:latest
-             docker push $DOCKER_HUB_USER_ID/viva-angular:$CIRCLE_SHA1
-             docker push $DOCKER_HUB_USER_ID/viva-angular:latest
-        
+             
       #Cache Local dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
