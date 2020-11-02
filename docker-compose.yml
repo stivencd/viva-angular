@@ -1,0 +1,11 @@
+version: '3'
+services: 
+  angularapp:
+    build: .
+    ports:
+      - "4200:4200"
+    networks:
+      - my_net
+networks:
+    my_net:
+      driver: bridge
