@@ -28,12 +28,11 @@ jobs:
       - run:
           name: Run tests
           command: |
-              docker-compose up -d
-              docker-compose ps
+              docker-compose up -d 
+              echo "dcoker ps"             
               docker ps
-              docker images
-              
-             
+              echo "dcoker images"
+              docker images             
       #Cache Local dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
