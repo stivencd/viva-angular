@@ -20,12 +20,15 @@ jobs:
       - run:
           name: Install local dependencies
           command: |
-              apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1              
+              apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1
+              apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main/ docker-compose=1.24.1-r3      
               npm install
       # Run test
       - run:
           name: Run tests
-          command: docker-compose up -d
+          command: |
+              docker-compose up -d
+              docker-compose ps
               
              
       #Cache Local dependencies
